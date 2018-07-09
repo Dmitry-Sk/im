@@ -1,0 +1,37 @@
+<div class="be-left-sidebar">
+  <div class="left-sidebar-wrapper">
+    <a href="#" class="left-sidebar-toggle">Dashboard</a>
+    <div class="left-sidebar-spacer">
+      <div class="left-sidebar-scroll" appPerfectScrollbar>
+        <div class="left-sidebar-content">
+          <ul class="sidebar-elements">
+            <ng-template ngFor let-menuItem [ngForOf]="menuItems">
+              <li *ngIf="menuItem.divider" class="divider">{{menuItem.label}}</li>
+              <li *ngIf="!menuItem.divider" routerLinkActive="active open" [class.parent]="menuItem.children">
+                <a [routerLink]="menuItem.link">
+                  <i [class]="menuItem.icon"></i>
+                  <span>{{menuItem.label}}</span>
+                </a>
+                <ul *ngIf="menuItem.children" class="sub-menu">
+                  <li *ngFor="let childMenuItem of menuItem.children" routerLinkActive="active">
+                    <a [routerLink]="childMenuItem.link">
+                      <i [class]="childMenuItem.icon"></i>
+                      <span>{{childMenuItem.label}}</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ng-template>
+            <li class="divider">Help</li>
+            <li>
+              <a href="https://support.gopmo.com" target="_blank">
+                <i class="icon mdi mdi-pin-help"></i>
+                <span>Support</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

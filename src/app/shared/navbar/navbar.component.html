@@ -1,0 +1,63 @@
+<nav class="navbar navbar-default navbar-fixed-top be-top-header">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a routerLink="/" class="navbar-brand"></a>
+    </div>
+    <div class="be-right-navbar">
+      <ul *ngIf="currentUser" class="nav navbar-nav navbar-right be-user-nav">
+        <li class="dropdown">
+          <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">
+            <img src="assets/img/avatar.jpg" alt="Avatar">
+            <span class="user-name">{{currentUser.name}}</span>
+          </a>
+          <ul role="menu" class="dropdown-menu">
+            <li>
+              <div class="user-info">
+                <div class="user-name">{{currentUser.name}}</div>
+                <small>{{currentUser.tenant_name}}</small>
+              </div>
+            </li>
+            <li>
+              <a href="javascript:void(0);" routerLink="/security/user-profile">
+                <span class="icon mdi mdi-face"></span> Profile
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <span class="icon mdi mdi-settings"></span> Settings
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);" (click)="logout(template)">
+                <span class="icon mdi mdi-power"></span> Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="page-title">
+        <span>{{title}}</span>
+      </div>
+    </div>
+  </div>
+</nav>
+<ng-template #template>
+  <div class="modal-header">
+    <button (click)="cancelLogout()" type="button" class="close modal-close">
+      <span class="mdi mdi-close"></span>
+    </button>
+    <h3 class="modal-title">Logout</h3>
+  </div>
+  <div class="modal-body">
+    <div class="text-center">
+      <span>Are you sure you want to logout?</span>
+      <div class="xs-mt-20">
+        <button (click)="cancelLogout()" type="button" data-dismiss="modal" class="btn btn-default btn-space modal-close">Cancel</button>
+        <button (click)="confirmLogout()" type="button" data-dismiss="modal" class="btn btn-warning btn-space modal-close">
+          <i class="icon icon-left mdi mdi-power"></i>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

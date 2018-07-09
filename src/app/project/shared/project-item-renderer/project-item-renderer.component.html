@@ -1,0 +1,31 @@
+<div class="component-root" [class.col-md-3]="viewMode === 'grid'" [class.col-md-6]="viewMode === 'tiles'" [class.col-md-12]="viewMode === 'list'">
+  <div class="panel panel-border" [class.list-view]="viewMode === 'list'" [class.grid-view]="viewMode === 'grid' || viewMode === 'tiles'">
+    <div class="panel-heading panel-heading-divider">
+      <a [routerLink]="['/project', item.Id]">{{item.Name}}</a>
+      <div class="tools">
+        <!-- <span class="icon mdi mdi-edit" (click)="editItem(item)"></span> -->
+        <span class="icon mdi mdi-delete" (click)="removeItem(item)"></span>
+      </div>
+      <span class="panel-subtitle">{{item.Status}}</span>
+    </div>
+    <div class="panel-body">
+      {{item.Description | htmlToPlanText}}
+      <hr>
+      <div *ngIf="viewMode === 'grid'">
+        <strong>Type:</strong> {{item.ProjectType}}
+        <hr>
+        <strong>Start Date:</strong> {{item.StartDate | date}}
+        <hr>
+        <strong>Project Manager:</strong> {{item.ProjectManagerName}}
+      </div>
+      <div *ngIf="viewMode === 'list'" class="row">
+        <div class="col-md-4">
+          <strong>Type:</strong> {{item.ProjectType}}</div>
+        <div class="col-md-4">
+          <strong>Start Date:</strong> {{item.StartDate | date}}</div>
+        <div class="col-md-4">
+          <strong>Project Manager:</strong> {{item.ProjectManagerName}}</div>
+      </div>
+    </div>
+  </div>
+</div>

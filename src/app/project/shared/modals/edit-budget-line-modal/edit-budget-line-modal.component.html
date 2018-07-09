@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="modal-header">
+    <button type="button" data-dismiss="modal" aria-hidden="true" class="close modal-close" (click)="decline()">
+      <span class="mdi mdi-close"></span>
+    </button>
+    <h3 class="modal-title">Edit Budget Line</h3>
+  </div>
+
+  <form #editLineForm="ngForm" (ngSubmit)="update(editLineForm)">
+    <div class="modal-body form">
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" ngModelGroup="Product" #Product="ngModelGroup" [ngClass]="{  
+      'has-error': Product.invalid && (Product.dirty || Product.touched),  
+      'has-success': Product.valid && (Product.dirty || Product.touched)}">
+        <label for="product">Product</label>
+        <ng-select [(ngModel)]="_item.SKU" class="impel-select" bindLabel="Name" [items]="catalogItems" bindValue="SKU" name="product"
+          placeholder="Select an Option" id="product" required>
+        </ng-select>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="Name" #Name="ngModelGroup" [ngClass]="{  
+        'has-error': Name.invalid && (Name.dirty || Name.touched),  
+        'has-success': Name.valid && (Name.dirty || Name.touched)}">
+        <label for="name">Name</label>
+        <input [(ngModel)]="_item.Name" type="text" placeholder="Name" class="form-control" name="name" id="name" required>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="Category" #Category="ngModelGroup" [ngClass]="{  
+        'has-error': Category.invalid && (Category.dirty || Category.touched),  
+        'has-success': Category.valid && (Category.dirty || Category.touched)}">
+        <label for="category">Category</label>
+        <input [(ngModel)]="_item.Category" type="text" placeholder="Category" class="form-control" name="category" id="category"
+          required>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="UnitPrice" #UnitPrice="ngModelGroup" [ngClass]="{  
+        'has-error': UnitPrice.invalid && (UnitPrice.dirty || UnitPrice.touched),  
+        'has-success': UnitPrice.valid && (UnitPrice.dirty || UnitPrice.touched)}">
+        <label for="unit-price">Unit Price $</label>
+        <input [(ngModel)]="_item.UnitPrice" type="number" placeholder="Unit Price" class="form-control" name="unit-price" id="unit-price"
+          required>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="Discount" #Discount="ngModelGroup" [ngClass]="{  
+      'has-error': Discount.invalid && (Discount.dirty || Discount.touched),  
+      'has-success': Discount.valid && (Discount.dirty || Discount.touched)}">
+        <label for="discount">Discount %</label>
+        <input [(ngModel)]="_item.Discount" type="number" placeholder="Discount" class="form-control" name="discount" id="discount"
+          required>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="PlannedQuantity" #PlannedQuantity="ngModelGroup"
+        [ngClass]="{  
+        'has-error': PlannedQuantity.invalid && (PlannedQuantity.dirty || PlannedQuantity.touched),  
+        'has-success': PlannedQuantity.valid && (PlannedQuantity.dirty || PlannedQuantity.touched)}">
+        <label for="planned-quantity">Planned Quantity</label>
+        <input [(ngModel)]="_item.PlannedQuantity" type="number" placeholder="Planned Quantity" class="form-control" name="planned-quantity"
+          id="planned-quantity" required>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="ForecastQuantity" #ForecastQuantity="ngModelGroup"
+        [ngClass]="{  
+          'has-error': ForecastQuantity.invalid && (ForecastQuantity.dirty || ForecastQuantity.touched),  
+          'has-success': ForecastQuantity.valid && (ForecastQuantity.dirty || ForecastQuantity.touched)}">
+        <label for="forecast-quantity">Forecast Quantity</label>
+        <input [(ngModel)]="_item.ForecastQuantity" type="number" placeholder="Forecast Quantity" class="form-control" name="forecast-quantity"
+          id="forecast-quantity" required>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="ActualQuantity" #ActualQuantity="ngModelGroup"
+        [ngClass]="{  
+            'has-error': ActualQuantity.invalid && (ActualQuantity.dirty || ActualQuantity.touched),  
+            'has-success': ActualQuantity.valid && (ActualQuantity.dirty || ActualQuantity.touched)}">
+        <label for="actual-quantity">Actual Quantity</label>
+        <input [(ngModel)]="_item.ActualQuantity" type="number" placeholder="Actual Quantity" class="form-control" name="actual-quantity"
+          id="actual-quantity" required>
+      </div>
+
+      <div class="xs-pt-10 form-group" [ngClass]="{  
+        'has-error': DateNeeded.invalid && (DateNeeded.dirty || DateNeeded.touched)}">
+        <label for="date-needed">Date Needed</label>
+        <div class="input-group" ngModelGroup="DateNeeded" #DateNeeded="ngModelGroup">
+          <input [(ngModel)]="_item.DateNeeded" bsDatepicker #dateNeededDp="bsDatepicker" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-orange' }"
+            name="date-needed" type="text" id="date-needed" class="form-control" required>
+          <span class="input-group-addon btn btn-primary" (click)="dateNeededDp.toggle()">
+            <i class="icon-th mdi mdi-calendar"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 xs-pt-10 form-group" ngModelGroup="Description" #Description="ngModelGroup"
+        [ngClass]="{  
+                'has-error': Description.invalid && (Description.dirty || Description.touched)}">
+        <app-tinymce [(ngModel)]='_item.Description' name="Description" required></app-tinymce>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" data-dismiss="modal" class="btn btn-default modal-close" (click)="decline()">Cancel</button>
+      <button type="submit" data-dismiss="modal" class="btn btn-success modal-close">Update</button>
+    </div>
+  </form>
+</div>

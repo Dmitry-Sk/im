@@ -1,0 +1,21 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" data-dismiss="modal" aria-hidden="true" class="close modal-close" (click)="decline()">
+      <span class="mdi mdi-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center">
+      <div class="text-primary">
+        <span class="modal-main-icon mdi mdi-alert-triangle"></span>
+      </div>
+      <h3>{{title}}</h3>
+      <h4>{{message}}</h4>
+      <div class="xs-mt-50">
+        <button type="button" data-dismiss="modal" class="btn btn-default btn-space modal-close" (click)="decline()">{{declineButton}}</button>
+        <button type="button" data-dismiss="modal" class="btn btn-primary btn-space modal-close" (click)="confirm()">{{confirmButton}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer"></div>
+</div>

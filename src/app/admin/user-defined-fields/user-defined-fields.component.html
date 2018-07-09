@@ -1,0 +1,37 @@
+<div class="panel panel-default panel-table">
+  <div class="panel-heading">
+    <button class="btn btn-space btn-primary pull-right" (click)="addUserDefinedFieldModal()">
+      <i class="fa fa-plus"></i>Add Item</button>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 10%">Name</th>
+          <th>Label</th>
+          <th>Data Type</th>
+          <th>Module Type</th>
+          <th>Required</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="userDefinedFields">
+        <tr *ngFor="let userDefinedField of userDefinedFields.ViewModel">
+          <td>{{userDefinedField.Name}}</td>
+          <td>{{userDefinedField.Label}}</td>
+          <td>{{userDefinedField.DataType}}</td>
+          <td>{{userDefinedField.ModuleType}}</td>
+          <td>{{userDefinedField.IsRequired}}</td>
+          <td class="actions">
+            <a href="javascript:void(0);" (click)="editUserDefinedFieldModal(userDefinedField)" class="icon" style="margin-right: 10px;">
+              <i class="mdi mdi-edit"></i>
+            </a>
+            <a href="javascript:void(0);" (click)="confirmRemoveUserDefinedFieldModal(userDefinedField)" class="icon">
+              <i class="mdi mdi-delete"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

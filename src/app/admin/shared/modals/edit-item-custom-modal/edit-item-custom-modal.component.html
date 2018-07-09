@@ -1,0 +1,124 @@
+<div class="modal-header">
+  <button type="button" data-dismiss="modal" aria-hidden="true" class="close modal-close" (click)="decline()">
+    <span class="mdi mdi-close"></span>
+  </button>
+  <h3 class="modal-title">{{title}} Item</h3>
+</div>
+<form #itemForm="ngForm" (ngSubmit)="update(itemForm)">
+  <!-- Groups / Sources / Design Types / User Types  -->
+  <div class="modal-body form" *ngIf="itemType !== 'UserDefinedFields' && itemType !== 'Catalog'">
+    <div class="form-group" ngModelGroup="Name" #Name="ngModelGroup" [ngClass]="{  
+      'has-error': Name.invalid && (Name.dirty || Name.touched),  
+      'has-success': Name.valid && (Name.dirty || Name.touched)}">
+      <label for="name">Name</label>
+      <input [(ngModel)]="_item.Name" type="text" placeholder="Name" class="form-control" name="name" id="name" required>
+    </div>
+    <div class="form-group" *ngIf="hasProp(item, 'GroupType')" ngModelGroup="GroupType" #GroupType="ngModelGroup" [ngClass]="{  
+        'has-error': GroupType.invalid && (GroupType.dirty || GroupType.touched),  
+        'has-success': GroupType.valid && (GroupType.dirty || GroupType.touched)}">
+      <label for="group-type">Group Type</label>
+      <ng-select class="impel-select" [(ngModel)]="_item.GroupType" name="group-type" placeholder="Select an Option" id="group-type"
+        required>
+        <ng-option *ngFor="let groupType of groupTypes" [value]="groupType">{{groupType | splitCamelCase}}</ng-option>
+      </ng-select>
+    </div>
+    <div class="form-group" ngModelGroup="SuggestionStatus" #SuggestionStatus="ngModelGroup" [ngClass]="{  
+        'has-error': SuggestionStatus.invalid && (SuggestionStatus.dirty || SuggestionStatus.touched),  
+        'has-success': SuggestionStatus.valid && (SuggestionStatus.dirty || SuggestionStatus.touched)}">
+      <label for="suggestion-status">Suggestion Status</label>
+      <ng-select class="impel-select" [(ngModel)]="_item.SuggestionStatus" [items]="suggestionStatuses" name="suggestion-status"
+        placeholder="Select an Option" id="suggestion-status" required>
+      </ng-select>
+    </div>
+  </div>
+  <div class="modal-body form" *ngIf="itemType === 'Catalog'">
+    <!-- Catalog -->
+    <div class="form-group" ngModelGroup="SKU" #SKU="ngModelGroup" [ngClass]="{  
+      'has-error': SKU.invalid && (SKU.dirty || SKU.touched),  
+      'has-success': SKU.valid && (SKU.dirty || SKU.touched)}">
+      <label for="SKU">SKU</label>
+      <input [(ngModel)]="_item.SKU" type="text" placeholder="SKU" class="form-control" name="SKU" id="SKU" required>
+    </div>
+    <div class="form-group" ngModelGroup="Name" #Name="ngModelGroup" [ngClass]="{  
+      'has-error': Name.invalid && (Name.dirty || Name.touched),  
+      'has-success': Name.valid && (Name.dirty || Name.touched)}">
+      <label for="name">Name</label>
+      <input [(ngModel)]="_item.Name" type="text" placeholder="Name" class="form-control" name="name" id="name" required>
+    </div>
+    <div class="form-group" ngModelGroup="Category" #Category="ngModelGroup" [ngClass]="{  
+      'has-error': Category.invalid && (Category.dirty || Category.touched),  
+      'has-success': Category.valid && (Category.dirty || Category.touched)}">
+      <label for="category">Category</label>
+      <input [(ngModel)]="_item.Category" type="text" placeholder="Category" class="form-control" name="category" id="category"
+        required>
+    </div>
+    <div class="form-group" ngModelGroup="UnitPrice" #UnitPrice="ngModelGroup" [ngClass]="{  
+      'has-error': UnitPrice.invalid && (UnitPrice.dirty || UnitPrice.touched),  
+      'has-success': UnitPrice.valid && (UnitPrice.dirty || UnitPrice.touched)}">
+      <label for="unit-price">Unit Price</label>
+      <input [(ngModel)]="_item.UnitPrice" type="number" placeholder="Unit Price" class="form-control" name="unit-price" id="unit-price"
+        required>
+    </div>
+    <div class="xs-pt-10 form-group" ngModelGroup="Description" #Description="ngModelGroup" [ngClass]="{  
+        'has-error': Description.invalid && (Description.dirty || Description.touched)}">
+      <app-tinymce [(ngModel)]="_item.Description" name="Description" required></app-tinymce>
+    </div>
+  </div>
+  <div class="modal-body form" *ngIf="itemType === 'UserDefinedFields'">
+    <!-- User Defined Fields -->
+    <div class="form-group" ngModelGroup="Name" #Name="ngModelGroup" [ngClass]="{  
+      'has-error': Name.invalid && (Name.dirty || Name.touched),  
+      'has-success': Name.valid && (Name.dirty || Name.touched)}">
+      <label for="name">Name (Key)</label>
+      <input [(ngModel)]="_item.Name" [disabled]="title === 'Edit'" type="text" placeholder="Name" class="form-control" name="name"
+        id="name" required>
+    </div>
+    <div class="form-group" ngModelGroup="Label" #Label="ngModelGroup" [ngClass]="{  
+      'has-error': Label.invalid && (Label.dirty || Label.touched),  
+      'has-success': Label.valid && (Label.dirty || Label.touched)}">
+      <label for="label">Label</label>
+      <input [(ngModel)]="_item.Label" type="text" placeholder="Label" class="form-control" name="label" id="label" required>
+    </div>
+    <div class="form-group" ngModelGroup="DataType" #DataType="ngModelGroup" [ngClass]="{  
+      'has-error': DataType.invalid && (DataType.dirty || DataType.touched),  
+      'has-success': DataType.valid && (DataType.dirty || DataType.touched)}">
+      <label for="data-type">Data Type</label>
+      <ng-select class="impel-select" [(ngModel)]="_item.DataType" [disabled]="title === 'Edit'" [items]="metadata.DataTypes" name="data-type"
+        bindLabel="Value" bindValue="Key" placeholder="Select an Option" id="data-type" required>
+      </ng-select>
+    </div>
+    <div class="form-group" *ngIf="_item.DataType === 'List'">
+      <label for="options">List Options</label>
+      <div class="input-group xs-mb-15">
+        <input #option [disabled]="title === 'Edit'" type="text" placeholder="Add Options" class="form-control" id="options">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-primary" [disabled]="title === 'Edit'" (click)="addOptions(option.value); option.value = ''">Add</button>
+        </span>
+      </div>
+      <p *ngIf="!_item.Options">-- No Options --</p>
+      <ol>
+        <li *ngFor="let option of optionsList">
+          {{option}}
+        </li>
+      </ol>
+    </div>
+    <div class="form-group" ngModelGroup="ModuleType" #ModuleType="ngModelGroup" [ngClass]="{  
+      'has-error': ModuleType.invalid && (ModuleType.dirty || ModuleType.touched),  
+      'has-success': ModuleType.valid && (ModuleType.dirty || ModuleType.touched)}">
+      <label for="module-type">Module Type</label>
+      <ng-select class="impel-select" [(ngModel)]="_item.ModuleType" [disabled]="title === 'Edit'" [items]="metadata.ModuleTypes"
+        name="module-type" bindLabel="DisplayName" bindValue="Value" placeholder="Select an Option" id="module-type" required>
+      </ng-select>
+    </div>
+    <div class="form-group">
+      <div class="be-checkbox">
+        <input [(ngModel)]="_item.IsRequired" class="form-control" type="checkbox" name="is-required" id="is-required" id="is-required">
+        <label for="is-required">Required</label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default modal-close" (click)="decline()">Cancel</button>
+    <button type="submit" data-dismiss="modal" class="btn btn-success modal-close">{{action}}</button>
+  </div>
+</form>

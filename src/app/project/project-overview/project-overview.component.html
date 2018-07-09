@@ -1,0 +1,29 @@
+<div class="panel panel-default panel-table panel-border-color panel-border-color-primary">
+  <div class="panel-heading">
+    Project Overview
+  </div>
+  <div class="panel-body">
+    <div *ngIf="!projectData" class="text-center margin-bottom-10px">
+      <img src="assets/img/loader-sm.gif" alt="Loading...">
+    </div>
+    <table class="table" *ngIf="projectData">
+      <tbody>
+        <tr>
+          <td>Status</td>
+          <td>
+            {{projectData.ViewModel.Status}}
+            <a href="javascript:void(0);" (click)="changeProjectStatus()">[Change]</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Created On</td>
+          <td>{{projectData.ViewModel.CreatedOnInstant | date}}</td>
+        </tr>
+        <tr>
+          <td>Created By</td>
+          <td>{{projectData.ViewModel.CreatedBy.Name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

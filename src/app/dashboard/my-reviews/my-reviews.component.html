@@ -1,0 +1,30 @@
+<div class="panel panel-default panel-table" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="loadMoreReviews()">
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Project #</th>
+          <th>Item #</th>
+          <th>Item Type</th>
+          <th>Time Requested</th>
+          <th>Number of Reviewers</th>
+          <th>Item Name</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="reviewsPagedResponse">
+        <tr *ngFor="let review of reviewsPagedResponse.Items">
+          <td>{{review.ProjectId}}</td>
+          <td>{{review.EntityId}}</td>
+          <td>{{review.EntityType}}</td>
+          <td>{{review.TimeRequested}}</td>
+          <td>{{review.Reviewers.length}}</td>
+          <td>{{review.Name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="reviewsPagedResponse && reviewsPagedResponse.Items.length < reviewsPagedResponse.TotalItems" class="text-center">
+  <button (click)="loadMoreReviews()" class="btn btn-space btn-default">Load More</button>
+</div>

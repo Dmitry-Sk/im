@@ -1,0 +1,29 @@
+<div class="margin-bottom-10px">
+  <div class="pull-left">
+    <app-sort-selector [sortFields]="sortFields" (onSortChanged)="onSortChanged($event)" [disabled]="loading"></app-sort-selector>
+  </div>
+  <div class="pull-right">
+    <app-view-mode-toggle [(viewMode)]="viewMode"></app-view-mode-toggle>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="margin-bottom-10px">
+  <app-items-search-bar [searchFields]="searchFields" (onSearchChanged)="onSearchChanged($event)" [disabled]="loading"></app-items-search-bar>
+</div>
+<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="loadMoreItems()">
+  <div *ngIf="pagedResponse">
+    <div class="row">
+      <app-test-scenario-item-renderer *ngFor="let item of pagedResponse.Items" [item]="item" [viewMode]="viewMode"></app-test-scenario-item-renderer>
+    </div>
+  </div>
+  <div *ngIf="loading" class="text-center">
+    <img src="assets/img/loader-sm.gif" alt="Loading...">
+  </div>
+  <div *ngIf="pagedResponse && pagedResponse.TotalItems === 0 && !loading" class="text-center">
+    -- No items found --
+  </div>
+</div>
+
+<div *ngIf="pagedResponse && pagedResponse.Items.length < pagedResponse.TotalItems && !loading" class="text-center">
+  <button (click)="loadMoreItems()" class="btn btn-space btn-default">Load More</button>
+</div>

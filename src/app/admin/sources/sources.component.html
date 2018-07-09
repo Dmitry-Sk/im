@@ -1,0 +1,31 @@
+<div class="panel panel-default panel-table">
+  <div class="panel-heading">
+    <button class="btn btn-space btn-primary pull-right" (click)="addSourceModal()">
+      <i class="fa fa-plus"></i>Add Item</button>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 10%">Name</th>
+          <th>Suggestion Status</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="sources">
+        <tr *ngFor="let source of sources">
+          <td>{{source.Name}}</td>
+          <td>{{source.SuggestionStatus}}</td>
+          <td class="actions">
+            <a href="javascript:void(0);" (click)="editSourceModal(source)" class="icon" style="margin-right: 10px;">
+              <i class="mdi mdi-edit"></i>
+            </a>
+            <a href="javascript:void(0);" (click)="confirmRemoveSourceModal(source)" class="icon">
+              <i class="mdi mdi-delete"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

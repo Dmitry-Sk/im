@@ -1,0 +1,15 @@
+<div class="be-content">
+  <div class="page-head" *ngIf="currentPathSegments.length > 0">
+    <ol class="breadcrumb page-head-nav">
+      <li>
+        <a routerLink="/">Dashboard</a>
+      </li>
+      <li *ngFor="let segment of currentPathSegments" class="active">
+        {{segment.Name}}
+      </li>
+    </ol>
+  </div>
+  <div class="main-content container-fluid">
+    <router-outlet></router-outlet>
+  </div>
+</div>

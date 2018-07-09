@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <button type="button" class="close modal-close" (click)="close()">
+    <span class="mdi mdi-close"></span>
+  </button>
+  <h3 class="modal-title">Change Project Manager</h3>
+</div>
+<form #changeProjectManagerForm="ngForm" (ngSubmit)="submit(changeProjectManagerForm)">
+  <div class="modal-body form">
+    <ng-select class="impel-select" [(ngModel)]="selectedProjectManager" [items]="projectManagers" name="ProjectManager" placeholder="Please select Project Manager"
+      bindLabel="Name" [clearable]="false" required>
+    </ng-select>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="close()">Cancel</button>
+    <button type="submit" class="btn btn-success" [disabled]="changeProjectManagerForm.pristine">Change</button>
+  </div>
+</form>

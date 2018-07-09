@@ -1,0 +1,71 @@
+<div class="panel panel-default panel-table">
+  <div class="panel-heading">
+    <div *ngIf="manifest">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <strong>Total Actual</strong>:
+          <p class="margin-bottom-0px">{{manifest.ViewModel.TotalActual | currency}}</p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <strong>Total Forecast</strong>:
+          <p class="margin-bottom-0px">{{manifest.ViewModel.TotalForecast | currency}}</p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <strong>Total Planned</strong>:
+          <p class="margin-bottom-0px">{{manifest.ViewModel.TotalPlanned | currency}}</p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <strong>Variance</strong>:
+          <p class="margin-bottom-0px">{{manifest.ViewModel.Variance}}&nbsp;%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 10%">Id</th>
+          <th>SKU</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Unit Price</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="manifest">
+        <tr *ngFor="let lineItem of lineItems">
+          <td>{{lineItem.Id}}</td>
+          <td>{{lineItem.SKU}}</td>
+          <td>{{lineItem.Name}}</td>
+          <td>{{lineItem.Description}}</td>
+          <td>{{lineItem.Category}}</td>
+          <td>{{lineItem.UnitPrice}}</td>
+          <td class="actions">
+            <a href="javascript:void(0);" (click)="updateLineModal(lineItem)" class="icon" style="margin-right: 10px;">
+              <i class="mdi mdi-edit"></i>
+            </a>
+            <a href="javascript:void(0);" (click)="confirmRemoveLineItemModal(lineItem.Id)" class="icon">
+              <i class="mdi mdi-delete"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="loading" class="text-center">
+  <img src="assets/img/loader-sm.gif" alt="Loading...">
+</div>
+<div *ngIf="lineItems.length === 0 && !loading" class="text-center">
+  -- No items found --
+</div>
+
+<button (click)="addNewLineModal()" class="btn btn-space btn-primary btn-lg floating-button right-bottom">
+  <i class="icon icon-left mdi mdi-plus"></i> Add New Line
+</button>
+
+<div *ngIf="pagedResponse && pagedResponse.Items.length < pagedResponse.TotalItems && !loading" class="text-center">
+  <button (click)="loadMoreItems()" class="btn btn-space btn-default">Load More</button>
+</div>

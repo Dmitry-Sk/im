@@ -1,0 +1,38 @@
+<div class="panel panel-default panel-table">
+    <div class="panel-heading">
+        <label for="file" class="btn btn-space btn-primary pull-right">
+            <input type="file" name="file-upload" id="file" class="file-upload-input" ngFileSelect [options]="options" (uploadOutput)="startUpload($event)"
+                [uploadInput]="uploadInput" /> Add Attachment
+        </label>
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="actions"></th>
+                </tr>
+            </thead>
+            <tbody *ngIf="attachmentsList">
+
+                <tr *ngFor="let attachment of attachmentsList">
+                    <td>
+                        <a href="javascript:void(0)" (click)="openAttachment(attachment)">{{attachment.FriendlyName}}</a>
+                    </td>
+                    <td class="actions">
+                        <a href="javascript:void(0);" (click)="confirmRemoveAttachmentModal(attachment)" class="icon">
+                            <i class="mdi mdi-delete"></i>
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="loading" class="text-center">
+    <img src="assets/img/loader-sm.gif" alt="Loading...">
+</div>
+<div *ngIf="attachmentsList.length === 0 && !loading" class="text-center">
+    -- No items found --
+</div>

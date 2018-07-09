@@ -1,0 +1,34 @@
+<div class="panel panel-default panel-table" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="loadMoreTenants()">
+  <div class="panel-heading">
+    <a class="btn btn-space btn-primary pull-right" [routerLink]="['./create']">Add Tenant</a>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 10%">Name</th>
+          <th style="width: 20%">Code</th>
+          <th>Total Users</th>
+          <th>Is Active</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="tenantsPagedResponse">
+        <tr *ngFor="let tenant of tenantsPagedResponse.Items">
+          <td>{{tenant.Name}}</td>
+          <td>{{tenant.Code}}</td>
+          <td>{{tenant.TotalUsers}}</td>
+          <td>{{tenant.IsActive}}</td>
+          <td class="actions">
+            <a href="javascript:void(0);" class="icon">
+              <i class="mdi mdi-edit" [routerLink]="['./', tenant.Code, 'edit']"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="tenantsPagedResponse && tenantsPagedResponse.Items.length < tenantsPagedResponse.TotalItems" class="text-center">
+  <button (click)="loadMoreTenants()" class="btn btn-space btn-default">Load More</button>
+</div>

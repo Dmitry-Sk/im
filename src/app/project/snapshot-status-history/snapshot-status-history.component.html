@@ -1,0 +1,48 @@
+<div class="panel panel-default panel-table">
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date Run</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="projectStatusHistory">
+        <tr *ngFor="let historyRecord of projectStatusHistory.Histories">
+          <td>{{historyRecord.DateRun | date}}</td>
+          <td class="text-right">
+            <button class="btn btn-space btn-danger btn-xs">
+              <i class="icon icon-left mdi mdi-download"></i> PDF
+            </button>
+            <button class="btn btn-space btn-success btn-xs">
+              <i class="icon icon-left mdi mdi-download"></i> Excel
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="!projectStatusHistory.Histories.length && !loadingReports">
+          <td colspan="2" class="text-center">
+            <strong>No records found</strong>
+          </td>
+        </tr>
+        <tr *ngIf="loadingReports">
+          <td colspan="2" class="text-center">
+            <img src="assets/img/loader-sm.gif" alt="Loading...">
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!projectStatusHistory && loadingReports">
+        <tr>
+          <td colspan="2" class="text-center">
+            <img src="assets/img/loader-sm.gif" alt="Loading...">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="text-center">
+  <button (click)="newHistoryReport()" [disabled]="processingReport" class="btn btn-space btn-default">
+    <i class="icon icon-left mdi mdi-chart"></i>
+    New History Report
+  </button>
+</div>

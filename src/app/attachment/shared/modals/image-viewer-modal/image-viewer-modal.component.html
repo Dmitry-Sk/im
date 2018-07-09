@@ -1,0 +1,14 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" data-dismiss="modal" aria-hidden="true" class="close modal-close" (click)="decline()">
+      <span class="mdi mdi-close"></span>
+    </button>
+    <h3 class="modal-title">View Attachment</h3>
+  </div>
+  <div class="modal-body">
+    <img style="width: 100%; cursor: pointer;" alt="Attachment" [src]="attachmentUri" (click)="download()">
+  </div>
+  <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default btn-space modal-close" (click)="decline()">Close</button>
+  </div>
+</div>

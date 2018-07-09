@@ -1,0 +1,50 @@
+<div class="panel panel-default panel-border-color panel-border-color-primary">
+  <div *ngIf="tenantInfo">
+    <div class="panel-heading panel-heading-divider">Tenant Info
+      <button *ngIf="tenantInfo.IsActive" class="btn btn-space btn-danger pull-right" (click)="deactivateTenant()">Deactivate</button>
+      <button *ngIf="!tenantInfo.IsActive" class="btn btn-space btn-success pull-right" (click)="activateTenant()">Activate</button>
+      <button class="btn btn-space btn-primary pull-right" (click)="restartTimers()">
+        Restart Timers
+      </button>
+      <button class="btn btn-space btn-primary pull-right" (click)="updateIndexes()">
+        Update Indexes
+      </button>
+      <button class="btn btn-space btn-primary pull-right" (click)="exportDB()">
+        Export DB
+      </button>
+    </div>
+    <div class="panel-body">
+      <form #tenantInfoForm="ngForm" (ngSubmit)="updateTenant(tenantInfoForm)">
+        <div class="col-lg-4 form-group">
+          <label for="code">Code</label>
+          <input [(ngModel)]="tenantInfo.Code" type="text" name="Code" class="form-control" id="code" [disabled]="true">
+        </div>
+        <div class="col-lg-4 form-group" ngModelGroup="Name" #Name="ngModelGroup" [ngClass]="{  
+              'has-error': Name.invalid && (Name.dirty || Name.touched),  
+              'has-success': Name.valid && (Name.dirty || Name.touched)}">
+          <label for="name">Name</label>
+          <input [(ngModel)]="tenantInfo.Name" type="text" placeholder="Name" name="Name" class="form-control" id="name" required>
+        </div>
+        <div class="col-lg-4 form-group" ngModelGroup="Scopes" #Scopes="ngModelGroup" [ngClass]="{  
+          'has-error': Scopes.invalid && (Scopes.dirty || Scopes.touched),  
+          'has-success': Scopes.valid && (Scopes.dirty || Scopes.touched)}">
+          <label for="scopes">Scopes</label>
+          <ng-select [(ngModel)]="tenantInfo.Scopes" [items]="scopes" class="impel-select" name="Scopes" placeholder="Select an Option" [multiple]="true"
+            id="scopes" required>
+          </ng-select>
+        </div>
+        <div class="col-lg-4 form-group">
+          <label for="primary-admin-name">Primary Admin Name</label>
+          <input [(ngModel)]="tenantInfo.PrimaryAdmin.Name" type="text" name="PrimaryAdminName" class="form-control" id="primary-admin-name" [disabled]="true">
+        </div>
+        <div class="col-lg-4 form-group">
+          <label for="primary-admin-email">Primary Admin Email</label>
+          <input [(ngModel)]="tenantInfo.PrimaryAdmin.Email" type="text" name="PrimaryAdminEmail" class="form-control" id="primary-admin-email" [disabled]="true">
+        </div>
+        <div class="col-lg-12">
+          <button type="submit" [disabled]="tenantInfoForm.pristine" class="btn btn-success pull-right">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

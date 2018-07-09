@@ -1,0 +1,28 @@
+<div class="panel">
+  <div class="panel-heading">
+    <strong> Current Tenant: </strong>{{tenantCode}}
+    <button class="btn btn-space btn-primary pull-right" [routerLink]="['../tenants', tenantCode, 'roles', 'create']">
+      <i class="icon icon-left mdi mdi-plus"></i>
+      Add Role</button>
+  </div>
+</div>
+<div class="panel panel-border-color panel-border-color-primary" *ngFor="let role of roles">
+  <div class="panel-heading">{{role.Name}}
+    <div class="tools">
+      <span class="icon mdi mdi-delete" (click)="deleteRoleModal(role)"></span>
+    </div>
+    <div class="tools">
+      <span class="icon mdi mdi-edit" [routerLink]="['../', 'tenants', tenantCode, 'roles', role.Name, 'edit']"></span>
+    </div>
+  </div>
+  <div class="panel-body">
+    <ul class="dd-list">
+      <ng-container *ngFor="let permission of role.Permissions">
+        <li *ngIf="permission.HasRight">
+          <i class="mdi mdi-check-square"></i>
+          &nbsp;{{permission.Name}}
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>

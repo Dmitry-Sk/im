@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="panel panel-contrast panel-border-color panel-border-color-primary">
+    <div class="panel-heading panel-heading-contrast">Manage Workplan Settings</div>
+  </div>
+
+  <form #workplanSettingsForm="ngForm" (ngSubmit)="updateWorkplanSettings(workplanSettingsForm)">
+    <div *ngIf="workplanSettings">
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <div class="col-sm-2 form-group be-checkbox">
+            <input [(ngModel)]="workplanSettings.TrackHours" id="track-hours" type="checkbox" checked="" name="track-hours">
+            <label for="track-hours">
+              <strong> I want to track task hours</strong>
+            </label>
+          </div>
+
+          <div class="col-sm-4 form-group be-checkbox">
+            <input [(ngModel)]="workplanSettings.EnableAllocations" id="assignee-allocations" type="checkbox" checked="" name="assignee-allocations">
+            <label for="assignee-allocations">
+              <strong> Use assignee allocations to calculate health </strong>
+            </label>
+          </div>
+
+          <div class="form-group col-sm-4" style="padding-top: 7px; color: #666666;" ngModelGroup="HoursPerDay" #HoursPerDay="ngModelGroup"
+            [ngClass]="{  
+            'has-error': HoursPerDay.invalid && (HoursPerDay.dirty || HoursPerDay.touched),  
+            'has-success': HoursPerDay.valid && (HoursPerDay.dirty || HoursPerDay.touched)}">
+            <span>Use</span>
+            <input [(ngModel)]="workplanSettings.HoursPerDay" type="number" min="1" max="24" name="HoursPerDay" id="test" required>
+            <span>work hours per day</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="col-sm-12">
+            <div class="form-group be-checkbox">
+              <input [(ngModel)]="workplanSettings.EnableStartTaskRules" id="start-task-warnings" type="checkbox" checked="" name="start-task-warnings">
+              <label for="start-task-warnings">
+                <strong>Enable start task warnings</strong>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4" ngModelGroup="StartPercentComplete" #StartPercentComplete="ngModelGroup" [ngClass]="{  
+          'has-error': StartPercentComplete.invalid && (StartPercentComplete.dirty || StartPercentComplete.touched),  
+          'has-success': StartPercentComplete.valid && (StartPercentComplete.dirty || StartPercentComplete.touched)}">
+            <span>If Activity is</span>
+            <input [(ngModel)]="workplanSettings.StartPercentComplete" [disabled]="!workplanSettings.EnableStartTaskRules" minlength="1"
+              maxlength="99" type="number" class="small" name="start-percent-complete" style="width: 80px; height: 20px;">
+            <span>% complete or less and the start date is</span>
+          </div>
+
+          <div class="form-group col-md-2" ngModelGroup="StartDaysInAdvance" #StartDaysInAdvance="ngModelGroup" [ngClass]="{  
+          'has-error': StartDaysInAdvance.invalid && (StartDaysInAdvance.dirty || StartDaysInAdvance.touched),  
+          'has-success': StartDaysInAdvance.valid && (StartDaysInAdvance.dirty || StartDaysInAdvance.touched)}">
+            <input [(ngModel)]="workplanSettings.StartDaysInAdvance" [disabled]="!workplanSettings.EnableStartTaskRules" minlength="1"
+              type="number" class="small" name="start-days-in-advance" style="width: 80px; height: 20px;">
+            <span>days or less away show</span>
+          </div>
+
+          <div class="form-group col-md-3" ngModelGroup="StartColor" #StartColor="ngModelGroup" [ngClass]="{  
+          'has-error': StartColor.invalid && (StartColor.dirty || StartColor.touched),  
+          'has-success': StartColor.valid && (StartColor.dirty || StartColor.touched)}">
+            <ng-select class="impel-select" [(ngModel)]="workplanSettings.StartColor" [disabled]="!workplanSettings.EnableStartTaskRules"
+              [items]="colors" name="start-color" placeholder="Select an Option">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="col-sm-12">
+            <div class="be-checkbox">
+              <input [(ngModel)]="workplanSettings.EnableEndTaskRules" id="end-task-warnings" type="checkbox" checked="" name="end-task-warnings">
+              <label for="end-task-warnings">
+                <strong>Enable end task warnings</strong>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group col-md-3" ngModelGroup="EndPercentComplete" #EndPercentComplete="ngModelGroup" [ngClass]="{  
+          'has-error': EndPercentComplete.invalid && (EndPercentComplete.dirty || EndPercentComplete.touched),  
+          'has-success': EndPercentComplete.valid && (EndPercentComplete.dirty || EndPercentComplete.touched)}">
+            <span>If Activity is</span>
+            <input [(ngModel)]="workplanSettings.EndPercentComplete" [disabled]="!workplanSettings.EnableEndTaskRules" type="number"
+              class="small" name="end-percent-compelete" style="width: 80px; height: 20px;">
+            <span>% complete or less and the end date is</span>
+          </div>
+
+          <div class="form-group col-md-2" ngModelGroup="EndDaysInAdvance" #EndDaysInAdvance="ngModelGroup" [ngClass]="{  
+          'has-error': EndDaysInAdvance.invalid && (EndDaysInAdvance.dirty || EndDaysInAdvance.touched),  
+          'has-success': EndDaysInAdvance.valid && (EndDaysInAdvance.dirty || EndDaysInAdvance.touched)}">
+            <input [(ngModel)]="workplanSettings.EndDaysInAdvance" [disabled]="!workplanSettings.EnableEndTaskRules" type="number" class="small"
+              name="end-days-in-advance" style="width: 80px; height: 20px;">
+            <span>days or less away show</span>
+          </div>
+
+          <div class="form-group col-md-3" ngModelGroup="EndColor" #EndColor="ngModelGroup" [ngClass]="{  
+          'has-error': EndColor.invalid && (EndColor.dirty || EndColor.touched),  
+          'has-success': EndColor.valid && (EndColor.dirty || EndColor.touched)}">
+            <ng-select class="impel-select" [(ngModel)]="workplanSettings.EndColor" [disabled]="!workplanSettings.EnableEndTaskRules"
+              [items]="colors" name="end-color" placeholder="Select an Option">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <p class="text-right">
+          <button type="submit" class="btn btn-success">Save Changes</button>
+        </p>
+      </div>
+    </div>
+  </form>
+</div>

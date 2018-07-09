@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="modal-header">
+    <button type="button" data-dismiss="modal" aria-hidden="true" class="close modal-close" (click)="decline()">
+      <span class="mdi mdi-close"></span>
+    </button>
+    <h3 class="modal-title">Add New Budget Line</h3>
+  </div>
+
+  <form #newLineForm="ngForm" (ngSubmit)="update(newLineForm)">
+    <div class="modal-body form">
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" ngModelGroup="Product" #Product="ngModelGroup" [ngClass]="{  
+    'has-error': Product.invalid && (Product.dirty || Product.touched),  
+    'has-success': Product.valid && (Product.dirty || Product.touched)}">
+        <label for="product">Product</label>
+        <ng-select [(ngModel)]="_item.ProductId" class="impel-select" [items]="catalogItems" name="product" bindLabel="Name" bindValue="SKU"
+          placeholder="Select an Option" id="product" required>
+        </ng-select>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="Name" #Name="ngModelGroup" [ngClass]="{  
+      'has-error': Name.invalid && (Name.dirty || Name.touched),  
+      'has-success': Name.valid && (Name.dirty || Name.touched)}">
+        <label for="name">Name</label>
+        <input [(ngModel)]="_item.Name" type="text" placeholder="Name" class="form-control" name="name" id="name" required>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="Category" #Category="ngModelGroup" [ngClass]="{  
+      'has-error': Category.invalid && (Category.dirty || Category.touched),  
+      'has-success': Category.valid && (Category.dirty || Category.touched)}">
+        <label for="category">Category</label>
+        <input [(ngModel)]="_item.Category" type="text" placeholder="Category" class="form-control" name="category" id="category"
+          required>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="UnitPrice" #UnitPrice="ngModelGroup" [ngClass]="{  
+      'has-error': UnitPrice.invalid && (UnitPrice.dirty || UnitPrice.touched),  
+      'has-success': UnitPrice.valid && (UnitPrice.dirty || UnitPrice.touched)}">
+        <label for="unit-price">Unit Price $</label>
+        <input [(ngModel)]="_item.UnitPrice" type="number" placeholder="Unit Price" class="form-control" name="unit-price" id="unit-price"
+          required>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ngModelGroup="Discount" #Discount="ngModelGroup" [ngClass]="{  
+    'has-error': Discount.invalid && (Discount.dirty || Discount.touched),  
+    'has-success': Discount.valid && (Discount.dirty || Discount.touched)}">
+        <label for="discount">Discount %</label>
+        <input [(ngModel)]="_item.Discount" type="number" placeholder="Discount" class="form-control" name="discount" id="discount"
+          required>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="xs-pt-10 form-group" ngModelGroup="Description" #Description="ngModelGroup" [ngClass]="{  
+              'has-error': Description.invalid && (Description.dirty || Description.touched)}">
+          <app-tinymce [(ngModel)]='_item.Description' name="Description" required></app-tinymce>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" data-dismiss="modal" class="btn btn-default modal-close" (click)="decline()">Cancel</button>
+      <button type="submit" data-dismiss="modal" class="btn btn-success modal-close">Add</button>
+    </div>
+  </form>
+</div>

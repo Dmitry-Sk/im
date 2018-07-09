@@ -1,0 +1,73 @@
+<div class="modal-header">
+  <button type="button" class="close modal-close" (click)="close()">
+    <span class="mdi mdi-close"></span>
+  </button>
+  <h3 class="modal-title">{{testScenarioId === '0'? 'Create' : 'Edit'}} Test Scenario</h3>
+</div>
+<form #craeteTestScenarioForm="ngForm" (ngSubmit)="save(craeteTestScenarioForm)">
+  <div *ngIf="testScenarioData" class="modal-body form">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="xs-pt-10 form-group" ngModelGroup="Sequence" #Sequence="ngModelGroup" [ngClass]="{  
+                'has-error': Sequence.invalid && formSubmitted}">
+          <label for="sequence">Sequence</label>
+          <input [(ngModel)]="testScenarioData.ViewModel.Sequence" type="number" placeholder="Sequence" name="Sequence" class="form-control"
+            id="sequence" required>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <div class="xs-pt-10 form-group" ngModelGroup="Name" #Name="ngModelGroup" [ngClass]="{  
+            'has-error': Name.invalid && formSubmitted}">
+          <label for="name">Name</label>
+          <input [(ngModel)]="testScenarioData.ViewModel.Name" type="text" placeholder="Name" name="Name" class="form-control" id="name"
+            required>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="xs-pt-10 form-group" ngModelGroup="Owner" #Owner="ngModelGroup" [ngClass]="{  
+          'has-error': Owner.invalid && formSubmitted}">
+          <label for="owner">Owner</label>
+          <ng-select class="impel-select" [(ngModel)]="testScenarioData.ViewModel.Owner" [items]="testScenarioData.Metadata.Owners" name="Owner"
+            bindLabel="Name" placeholder="Select an Option" id="owner" required>
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="xs-pt-10 form-group" ngModelGroup="Group" #Group="ngModelGroup" [ngClass]="{  
+          'has-error': Group.invalid && formSubmitted}">
+          <label for="group">Group Name</label>
+          <ng-select class="impel-select" [(ngModel)]="testScenarioData.ViewModel.Group" [items]="testScenarioData.Metadata.Groups" name="Group"
+            bindLabel="Name" placeholder="Select an Option" id="group" required>
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="xs-pt-10 form-group">
+          <label for="dependencies">Dependencies</label>
+          <ng-select class="impel-select" [(ngModel)]="testScenarioData.ViewModel.Dependencies" [items]="testScenarioData.Metadata.Dependencies"
+            name="Dependencies" bindLabel="Title" placeholder="Select an Option" id="dependencies" [multiple]="true">
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="xs-pt-10 form-group" ngModelGroup="Description" #Description="ngModelGroup" [ngClass]="{  
+                'has-error': Description.invalid && formSubmitted}">
+          <app-tinymce [(ngModel)]='testScenarioData.ViewModel.Description' name="Description" required></app-tinymce>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="pull-left">
+      <button type="button" class="btn btn-default" (click)="close()">Cancel</button>
+    </div>
+    <div class="pull-right">
+      <button type="submit" class="btn btn-success" [disabled]="craeteTestScenarioForm.pristine || loading">Save</button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</form>

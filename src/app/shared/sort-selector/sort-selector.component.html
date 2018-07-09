@@ -1,0 +1,35 @@
+<div>
+  <div class="pull-left">
+    <div class="input-group">
+      <button class="btn btn-md btn-default" data-toggle="dropdown" [disabled]="disabled">
+        Sort field: {{sortField | splitCamelCase}}
+        <i class="icon mdi mdi-chevron-down"></i>
+      </button>
+      <ul role="menu" class="dropdown-menu pull-right">
+        <li *ngFor="let field of _sortFields">
+          <a href="javascript:void(0);" (click)="setSortField(field)">
+            <i class="icon mdi" [class.mdi-check]="sortField === field"></i>{{field | splitCamelCase}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="pull-left">
+    <div class="input-group">
+      <button class="btn btn-md btn-default" data-toggle="dropdown" [disabled]="disabled">
+        Sort order: {{sortDirection}}
+        <i class="icon mdi mdi-chevron-down"></i>
+      </button>
+      <ul role="menu" class="dropdown-menu pull-right">
+        <li>
+          <a href="javascript:void(0);" (click)="setSortOrder(sortDirections[0])">
+            <i class="icon mdi" [class.mdi-check]="sortDirection === sortDirections[0]"></i>{{sortDirections[0]}}</a>
+        </li>
+        <li>
+          <a href="javascript:void(0);" (click)="setSortOrder(sortDirections[1])">
+            <i class="icon mdi" [class.mdi-check]="sortDirection === sortDirections[1]"></i>{{sortDirections[1]}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>

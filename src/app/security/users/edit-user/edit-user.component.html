@@ -1,0 +1,65 @@
+<div class="panel panel-default panel-border-color panel-border-color-primary">
+  <div *ngIf="userInfo">
+    <div class="panel-heading panel-heading-divider">User Info
+      <button *ngIf="userInfo.IsActive" class="btn btn-space btn-danger pull-right" (click)="deactivateUser()">Deactivate</button>
+      <button *ngIf="!userInfo.IsActive" class="btn btn-space btn-success pull-right" (click)="activateUser()">Activate</button>
+      <button class="btn btn-space btn-primary pull-right" (click)="makePrimaryAdmin()">
+        Make Primary Admin
+      </button>
+      <button class="btn btn-space btn-primary pull-right" (click)="changeUserNameModal()">
+        Change User Name
+      </button>
+      <button class="btn btn-space btn-primary pull-right" (click)="resetPassword()">
+        Reset Password
+      </button>
+    </div>
+    <div class="panel-body">
+      <form #userInfoForm="ngForm" (ngSubmit)="updateUser(userInfoForm)">
+        <div class="col-lg-4 form-group">
+          <label for="email">Email</label>
+          <input [(ngModel)]="userInfo.Email" type="text" name="Email" class="form-control" id="email" [disabled]="true" required>
+        </div>
+        <div class="col-lg-4 form-group" ngModelGroup="FirstName" #FirstName="ngModelGroup" [ngClass]="{  
+              'has-error': FirstName.invalid && (FirstName.dirty || FirstName.touched),  
+              'has-success': FirstName.valid && (FirstName.dirty || FirstName.touched)}">
+          <label for="first-name">First Name</label>
+          <input [(ngModel)]="userInfo.FirstName" type="text" placeholder="First Name" name="FirstName" class="form-control" id="first-name"
+            required>
+        </div>
+        <div class="col-lg-4 form-group" ngModelGroup="LastName" #LastName="ngModelGroup" [ngClass]="{  
+              'has-error': LastName.invalid && (LastName.dirty || LastName.touched),  
+              'has-success': LastName.valid && (LastName.dirty || LastName.touched)}">
+          <label for="last-name">Last Name</label>
+          <input [(ngModel)]="userInfo.LastName" type="text" placeholder="Last Name" name="LastName" class="form-control" id="last-name"
+            required>
+        </div>
+        <div class="col-lg-4 form-group" ngModelGroup="Position" #Position="ngModelGroup" [ngClass]="{  
+              'has-error': Position.invalid && (Position.dirty || Position.touched),  
+              'has-success': Position.valid && (Position.dirty || Position.touched)}">
+          <label for="position">Position</label>
+          <input [(ngModel)]="userInfo.Position" type="text" placeholder="Position" name="Position" class="form-control" id="position"
+            required>
+        </div>
+        <div class="col-lg-4 form-group" ngModelGroup="PersonType" #PersonType="ngModelGroup" [ngClass]="{  
+            'has-error': PersonType.invalid && (PersonType.dirty || PersonType.touched),  
+            'has-success': PersonType.valid && (PersonType.dirty || PersonType.touched)}">
+          <label for="position">Person Type</label>
+          <ng-select [(ngModel)]="userInfo.PersonType" class="impel-select" [items]="personTypes" name="PersonType" placeholder="Select an Option" id="position"
+            required>
+          </ng-select>
+        </div>
+        <div class="col-lg-12 form-group" ngModelGroup="ApplicationRoles" #ApplicationRoles="ngModelGroup" [ngClass]="{  
+            'has-error': ApplicationRoles.invalid && (ApplicationRoles.dirty || ApplicationRoles.touched),  
+            'has-success': ApplicationRoles.valid && (ApplicationRoles.dirty || ApplicationRoles.touched)}">
+          <label for="position">Application Roles</label>
+          <ng-select [(ngModel)]="userInfo.ApplicationRoles" [items]="roleList" bindLabel="Name" class="impel-select" name="ApplicationRoles"
+            [multiple]="true" placeholder="Select an Option" id="position" required>
+          </ng-select>
+        </div>
+        <div class="col-lg-12">
+          <button type="submit" [disabled]="userInfoForm.pristine" class="btn btn-success pull-right">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

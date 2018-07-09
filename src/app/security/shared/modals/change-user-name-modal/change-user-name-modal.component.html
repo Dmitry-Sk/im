@@ -1,0 +1,19 @@
+<div class="modal-header" style="background-color: #F57E0D">
+  <button type="button" data-dismiss="modal" aria-hidden="true" class="close modal-close" (click)="decline()">
+    <span class="mdi mdi-close"></span>
+  </button>
+  <h3 class="modal-title" style="color: #fff; font-size: 20px;">Change User Name (Email)</h3>
+</div>
+<form #userNameForm="ngForm" (ngSubmit)="confirm(userNameForm)">
+  <div class="modal-body form">
+    <div class="form-group" ngModelGroup="Name" #Name="ngModelGroup" [ngClass]="{ 'has-error': Name.invalid && (Name.dirty ||
+        Name.touched), 'has-success': Name.valid && (Name.dirty || Name.touched)}">
+      <label for="name">Please type new user name (email) here</label>
+      <input [(ngModel)]="userName" type="text" placeholder="start typing..." class="form-control" name="name" id="name" required>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default modal-close" (click)="decline()">Cancel</button>
+    <button type="submit" data-dismiss="modal" class="btn btn-success modal-close">Change</button>
+  </div>
+</form>

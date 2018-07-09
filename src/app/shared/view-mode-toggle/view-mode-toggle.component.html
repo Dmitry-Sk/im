@@ -1,0 +1,6 @@
+<button class="btn btn-default btn-md" (click)="toggleViewMode()">
+  <i class="icon icon-left mdi" [class.mdi-view-list]="viewMode === 'grid'"></i>
+  <i class="icon icon-left mdi" [class.mdi-view-module]="viewMode === 'list'"></i>
+  <span *ngIf="viewMode === 'grid'">List View</span>
+  <span *ngIf="viewMode === 'list'">Grid View</span>
+</button>

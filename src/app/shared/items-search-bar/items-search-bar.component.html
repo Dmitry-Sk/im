@@ -1,0 +1,22 @@
+<form #searchForm="ngForm" (ngSubmit)="search()">
+  <div class="input-group">
+    <input [(ngModel)]="searchText" name="search" type="text" class="form-control" [readonly]="disabled" placeholder="Search by {{searchField === 'all' ? 'All Fields' : (searchField | splitCamelCase)}}">
+    <div class="input-group-btn">
+      <button type="submit" tabindex="-1" class="btn btn-default" [disabled]="disabled">Search</button>
+      <button type="button" tabindex="-1" data-toggle="dropdown" [disabled]="disabled" class="btn btn-default btn-shade1 dropdown-toggle">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul role="menu" class="dropdown-menu pull-right">
+        <li>
+          <a href="javascript:void(0);" (click)="setField('all')">
+            <i *ngIf="searchField === 'all'" class="icon mdi mdi-check"></i>By All Fields</a>
+        </li>
+        <li *ngFor="let field of _searchFields" (click)="setField(field)">
+          <a href="javascript:void(0);">
+            <i *ngIf="searchField === field" class="icon mdi mdi-check"></i>By {{field | splitCamelCase}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</form>

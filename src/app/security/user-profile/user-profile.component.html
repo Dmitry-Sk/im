@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="panel panel-default panel-border-color panel-border-color-primary">
+    <div class="panel-heading panel-heading-divider">User Profile
+    </div>
+    <div class="panel-body">
+      <form #userProfileForm="ngForm" (ngSubmit)="update(userProfileForm)">
+        <div *ngIf="userProfile">
+          <div class="xs-pt-10 form-group" ngModelGroup="FirstName" #FirstName="ngModelGroup" [ngClass]="{  
+              'has-error': FirstName.invalid && (FirstName.dirty || FirstName.touched),  
+              'has-success': FirstName.valid && (FirstName.dirty || FirstName.touched)}">
+            <label for="first-name">First Name</label>
+            <input [(ngModel)]="userProfile.FirstName" type="text" placeholder="First Name" name="FirstName" class="form-control" id="first-name"
+              required>
+          </div>
+          <div class="form-group" ngModelGroup="LastName" #LastName="ngModelGroup" [ngClass]="{  
+              'has-error': LastName.invalid && (LastName.dirty || LastName.touched),  
+              'has-success': LastName.valid && (LastName.dirty || LastName.touched)}">
+            <label for="last-name">Last Name</label>
+            <input [(ngModel)]="userProfile.LastName" type="text" placeholder="Last Name" name="LastName" class="form-control" id="last-name"
+              required>
+          </div>
+          <div class="form-group" ngModelGroup="EmailPreference" #EmailPreference="ngModelGroup" [ngClass]="{  
+              'has-error': EmailPreference.invalid && (EmailPreference.dirty || EmailPreference.touched),  
+              'has-success': EmailPreference.valid && (EmailPreference.dirty || EmailPreference.touched)}">
+            <label for="email-preference">Email Preference</label>
+            <ng-select class="impel-select" [(ngModel)]="userProfile.EmailPreference" name="EmailPreference" placeholder="Select an Option"
+              id="email-preference" required>
+              <ng-option *ngFor="let emailPreference of emailPreferences" [value]="emailPreference">{{emailPreference | splitCamelCase}}</ng-option>
+            </ng-select>
+          </div>
+          <div class="row xs-pt-15">
+            <div class="col-xs-6">
+              <strong>
+                Assigned to You:&nbsp;
+              </strong>
+              <span *ngFor="let role of userProfile.Roles">
+                <span class="badge" style="cursor: pointer;" tooltip-append-to-body="true">
+                  {{role}}
+                </span>
+              </span>
+            </div>
+            <div class="col-xs-6">
+              <p class="text-right">
+                <a href="javascript:void(0);" class="btn btn-primary" role="button" (click)="confirmResetDefaultLayoutModal()">Reset Default Layout</a>
+                <a href="javascript:void(0);" class="btn btn-primary" role="button" (click)="confirmResetPasswordModal()">Reset Password</a>
+                <button type="submit" class="btn btn-success" [disabled]="userProfileForm.pristine">Save Changes</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

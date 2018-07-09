@@ -1,0 +1,60 @@
+<div class="panel panel-default panel-border-color panel-border-color-primary">
+  <div class="panel-heading panel-heading-divider">Add Tenant
+  </div>
+  <div class="panel-body">
+    <form #tenantInfoForm="ngForm" (ngSubmit)="create(tenantInfoForm)">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="xs-pt-10 form-group" ngModelGroup="Code" #Code="ngModelGroup" [ngClass]="{  
+            'has-error': Code.invalid && (Code.dirty || Code.touched)}">
+            <label for="code">Code</label>
+            <input [(ngModel)]="tenant.Code" type="text" placeholder="Code" name="Code" class="form-control" id="code" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="xs-pt-10 form-group" ngModelGroup="Name" #Name="ngModelGroup" [ngClass]="{  
+            'has-error': Name.invalid && (Name.dirty || Name.touched)}">
+            <label for="name">Name</label>
+            <input [(ngModel)]="tenant.Name" type="text" placeholder="Name" name="Name" class="form-control" id="name" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="xs-pt-10 form-group" ngModelGroup="Scopes" #Scopes="ngModelGroup" [ngClass]="{  
+            'has-error': Scopes.invalid && (Scopes.dirty || Scopes.touched)}">
+            <label for="scopes">Scopes</label>
+            <ng-select class="impel-select" [(ngModel)]="tenant.Scopes" [items]="scopes" [multiple]="true" name="Scopes" placeholder="Select an Option"
+              id="scopes" required>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="xs-pt-10 form-group" ngModelGroup="AdminFirstName" #AdminFirstName="ngModelGroup" [ngClass]="{  
+            'has-error': AdminFirstName.invalid && (AdminFirstName.dirty || AdminFirstName.touched)}">
+            <label for="adminFirstName">Admin First Name</label>
+            <input [(ngModel)]="tenant.AdminFirstName" type="text" placeholder="Admin First Name" name="AdminFirstName" class="form-control"
+              id="adminFirstName" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="xs-pt-10 form-group" ngModelGroup="AdminLastName" #AdminLastName="ngModelGroup" [ngClass]="{  
+            'has-error': AdminLastName.invalid && (AdminLastName.dirty || AdminLastName.touched)}">
+            <label for="adminLastName">Admin Last Name</label>
+            <input [(ngModel)]="tenant.AdminLastName" type="text" placeholder="Admin Last Name" name="AdminLastName" class="form-control"
+              id="adminLastName" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="xs-pt-10 form-group" ngModelGroup="AdminEmail" #AdminEmail="ngModelGroup" [ngClass]="{  
+            'has-error': AdminEmail.invalid && (AdminEmail.dirty || AdminEmail.touched)}">
+            <label for="adminEmail">Admin Email</label>
+            <input [(ngModel)]="tenant.AdminEmail" type="email" placeholder="Admin Email" name="AdminEmail" class="form-control" id="adminEmail"
+              required>
+          </div>
+        </div>
+      </div>
+      <div class="text-right">
+        <button type="submit" class="btn btn-success" [disabled]="tenantInfoForm.pristine">Create</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="panel panel-default panel-table">
+  <div class="panel-heading">
+    <button class="btn btn-space btn-primary pull-right" (click)="addUserTypeModal()">
+      <i class="fa fa-plus"></i>Add Item</button>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 10%">Name</th>
+          <th>Suggestion Status</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="userTypes">
+        <tr *ngFor="let userType of userTypes">
+          <td>{{userType.Name}}</td>
+          <td>{{userType.SuggestionStatus}}</td>
+          <td class="actions">
+            <a href="javascript:void(0);" (click)="editUserTypeModal(userType)" class="icon" style="margin-right: 10px;">
+              <i class="mdi mdi-edit"></i>
+            </a>
+            <a href="javascript:void(0);" (click)="confirmRemoveUserTypeModal(userType)" class="icon">
+              <i class="mdi mdi-delete"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
